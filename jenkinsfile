@@ -1,0 +1,33 @@
+pipeline {
+	
+	agent any
+	
+	parameters{
+		choice(
+			name:'browser',
+			choices:['chrome','firefox','edge'],
+			description:'Select browser'
+			)
+			}
+			
+	stages{
+		stage('Check Project'){
+			steps{
+				bat'''
+				echo checking project folder...
+				dir C:\\Users\\Anju\\eclipse\\java-2026-06\\eclipse\\Jenkins_Project
+				'''
+				}
+				}
+				
+				stage('Run Tests'){
+					steps {
+						dir('C:\\Users\\Anju\\eclipse\\java-2026-06\\eclipse\\Jenkins_Project')
+						{
+							bat "mvn clean test -Dbrowser=${params.browser}"
+						}
+					}
+				}
+			}
+		}
+	
